@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<trinidad-config xmlns="http://myfaces.apache.org/trinidad/config">
+
+  <!--<skin-family>#{preferenceBean.defaultTrinidadSkin}</skin-family>
+  <skin-version>v1.2</skin-version>
+  <skin-family>blue-style</skin-family>
+  -->
+    <skin-family>bootstrap-style</skin-family>
+</trinidad-config>

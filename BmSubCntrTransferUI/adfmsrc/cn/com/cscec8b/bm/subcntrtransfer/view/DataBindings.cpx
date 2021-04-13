@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://xmlns.oracle.com/adfm/application"
+             version="11.1.1.61.92" id="DataBindings" SeparateXMLFiles="false"
+             Package="cn.com.cscec8b.bm.subcntrtransfer.view" ClientType="Generic">
+  <definitionFactories>
+    <factory nameSpace="http://xmlns.oracle.com/adf/controller/binding"
+             className="oracle.adf.controller.internal.binding.TaskFlowBindingDefFactoryImpl"/>
+    <dtfactory className="oracle.adf.controller.internal.dtrt.binding.BindingDTObjectFactory"/>
+  </definitionFactories>
+  <pageMap>
+    <page path="/cn/com/cscec8b/bm/subcntrtransfer/view/pages/subCntrTransfer.jspx"
+          usageId="cn_com_cscec8b_bm_subcntrtransfer_view_subCntrTransferPageDef"/>
+    <page path="/cn/com/cscec8b/bm/subcntrtransfer/view/fragments/subCntrTransfer.jsff"
+          usageId="cn_com_cscec8b_bm_subcntrtransfer_view_subCntrTransferPageDef1"/>
+    <page path="/cn/com/cscec8b/bm/subcntrtransfer/view/fragments/subCntrTransferHistory.jsff"
+          usageId="cn_com_cscec8b_bm_subcntrtransfer_view_subCntrTransferHistoryPageDef"/>
+    
+  </pageMap>
+  <pageDefinitionUsages>
+    <page id="cn_com_cscec8b_bm_subcntrtransfer_view_subCntrTransferPageDef"
+          path="cn.com.cscec8b.bm.subcntrtransfer.view.pages.subCntrTransferPageDef"/>
+    <page id="cn_com_cscec8b_bm_subcntrtransfer_view_subCntrTransferPageDef1"
+          path="cn.com.cscec8b.bm.subcntrtransfer.view.fragments.subCntrTransferPageDef"/>
+    <page id="cn_com_cscec8b_bm_subcntrtransfer_view_subCntrTransferHistoryPageDef"
+          path="cn.com.cscec8b.bm.subcntrtransfer.view.fragments.subCntrTransferHistoryPageDef"/>
+  </pageDefinitionUsages>
+  <dataControlUsages>
+    <BC4JDataControl id="BmSubCntrTransferTaskflowAMDataControl"
+                     Package="cn.com.cscec8b.bm.subcntrtransfer.model.services"
+                     FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl"
+                     SupportsTransactions="true" SupportsFindMode="true"
+                     SupportsRangesize="true" SupportsResetState="true"
+                     SupportsSortCollection="true"
+                     Configuration="BmSubCntrTransferTaskflowAMLocal"
+                     syncMode="Immediate"
+                     xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+  </dataControlUsages>
+</Application>

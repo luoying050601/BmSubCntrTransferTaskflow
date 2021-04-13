@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="BmSubcntrTransferAmountVO"
+  Version="11.1.1.61.92"
+  InheritPersonalization="true"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="cn.com.cscec8b.framework.model.common.CustomViewRowImpl"
+  ComponentClass="cn.com.cscec8b.framework.model.common.CustomViewObjectImpl"
+  DefClass="cn.com.cscec8b.framework.model.common.CustomViewDefImpl"
+  PageIterMode="Full"
+  UseGlueCode="false">
+  <DesignTime>
+    <Attr Name="_isExpertMode" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransferAmountVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="bvDocumentNumber"
+    Kind="viewcriteria"
+    Type="java.lang.String"/>
+  <Variable
+    Name="bvSubcntrId"
+    Kind="viewcriteria"
+    Type="oracle.jbo.domain.Number"/>
+  <SQLQuery>
+    <![CDATA[SELECT *
+  FROM (SELECT T.DOCUMENT_NUMBER,
+               TH.SUBCNTR_ID,
+               (select NVL(SUM(TL.TRANSFER_AMOUNT), 0)
+                  FROM BM.BM_SUBCNTR_TRANSFER_LINE_T TL
+                 WHERE TL.BM_DOCUMENT_TYPE = 'MEASURE'
+                   AND TL.DOCUMENT_NUMBER = T.DOCUMENT_NUMBER
+                 GROUP BY TL.DOCUMENT_NUMBER, TL.BM_DOCUMENT_TYPE) AS MEASURE_TRANSFER_AMOUNT,
+               (select NVL(SUM(TL.TRANSFER_AMOUNT), 0)
+                  FROM BM.BM_SUBCNTR_TRANSFER_LINE_T TL
+                 WHERE TL.BM_DOCUMENT_TYPE = 'VISA'
+                   AND TL.DOCUMENT_NUMBER = T.DOCUMENT_NUMBER
+                 GROUP BY TL.DOCUMENT_NUMBER, TL.BM_DOCUMENT_TYPE) AS VISA_TRANSFER_AMOUNT,
+               (select SUM(TL.TRANSFER_AMOUNT)
+                  FROM BM.BM_SUBCNTR_TRANSFER_LINE_T TL
+                 WHERE TL.BM_DOCUMENT_TYPE = 'DEDUCTION'
+                   AND TL.DOCUMENT_NUMBER = T.DOCUMENT_NUMBER
+                 GROUP BY TL.DOCUMENT_NUMBER, TL.BM_DOCUMENT_TYPE) AS DEDUCTION_TRANSFER_AMOUNT
+          FROM BM.BM_SUBCNTR_TRANSFER_LINE_T   T,
+               BM.BM_SUBCNTR_TRANSFER_HEADER_T TH
+         WHERE T.BM_DOCUMENT_ID = TH.BM_DOCUMENT_ID
+         GROUP BY T.DOCUMENT_NUMBER, TH.SUBCNTR_ID) t]]>
+  </SQLQuery>
+  <ViewAttribute
+    Name="DocumentNumber"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="DOCUMENT_NUMBER"
+    Expression="DOCUMENT_NUMBER"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="SubcntrId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="SUBCNTR_ID"
+    Expression="SUBCNTR_ID"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="MeasureTransferAmount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="MEASURE_TRANSFER_AMOUNT"
+    Expression="MEASURE_TRANSFER_AMOUNT"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="VisaTransferAmount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="VISA_TRANSFER_AMOUNT"
+    Expression="VISA_TRANSFER_AMOUNT"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="DeductionTransferAmount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="DEDUCTION_TRANSFER_AMOUNT"
+    Expression="DEDUCTION_TRANSFER_AMOUNT"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewCriteria
+    Name="BmSubcntrTransferAmountVOCriteria"
+    ViewObjectName="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransferAmountVO"
+    Conjunction="AND">
+    <Properties>
+      <CustomProperties>
+        <Property
+          Name="displayOperators"
+          Value="InAdvancedMode"/>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="true"/>
+        <Property
+          Name="showInList"
+          Value="true"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="vcrow63"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="DocumentNumber"
+        ViewAttribute="DocumentNumber"
+        Operator="="
+        Conjunction="AND"
+        Value=":bvDocumentNumber"
+        IsBindVarValue="true"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="SubcntrId"
+        ViewAttribute="SubcntrId"
+        Operator="="
+        Conjunction="AND"
+        Value=":bvSubcntrId"
+        IsBindVarValue="true"
+        Required="Optional"/>
+    </ViewCriteriaRow>
+  </ViewCriteria>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="cn.com.cscec8b.bm.subcntrtransfer.model.BmSubCntrTransferModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

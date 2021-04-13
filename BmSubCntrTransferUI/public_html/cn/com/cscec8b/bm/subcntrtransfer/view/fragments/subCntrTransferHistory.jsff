@@ -1,0 +1,237 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:c="http://java.sun.com/jsp/jstl/core">
+  <c:set var="bmsubcntrtransferuiBundle"
+         value="#{adfBundle['cn.com.cscec8b.bm.subcntrtransfer.view.BmSubCntrTransferUIBundle']}"/>
+  <af:panelStretchLayout id="psl1" startWidth="auto" endWidth="auto"
+                         topHeight="auto" bottomHeight="auto"
+                         binding="#{backingBeanScope.subcntrTransferBean.transferLayout}">
+    <f:facet name="center">
+      <af:panelCollection id="pc1" featuresOff="detach statusBar">
+        <f:facet name="menus"/>
+        <f:facet name="toolbar">
+          <af:toolbar id="t3">
+          <af:commandToolbarButton text="#{bmsubcntrtransferuiBundle['cn.com.cscec8b.bm.bmsubcntrTransferTaskflow.view.fragments.subcntrTransfer.transferAgain']}"
+                                     id="ctb1"
+                                   actionListener="#{backingBeanScope.subcntrTransferBean.transferAgainListener}"
+                                   binding="#{backingBeanScope.subcntrTransferBean.transferAgainButton}"
+                                   styleClass="stress_button"
+                                   visible="#{pageFlowScope.transferAgainFlag}"
+                                   rendered="#{pageFlowScope.authorityType eq 'VIEW'}">
+                                    <af:clientListener method="transferButtonShowPop"
+                                   type="action"/>     
+                                   </af:commandToolbarButton>
+            <af:commandToolbarButton text="错误记录回滚" id="ctb3"
+                                     actionListener="#{backingBeanScope.subcntrTransferBean.rollbackRecordActionListener}"
+                                     rendered="#{pageFlowScope.authorityType eq 'VIEW'}"
+                                     visible="#{pageFlowScope.transferAgainFlag}"/>
+            <af:commandToolbarButton text="导出" id="ctb2">
+              <af:exportCollectionActionListener exportedId="t1"
+                                                 type="excelHTML"
+                                                 filename="分包财务确认.xls"/>
+            </af:commandToolbarButton>
+          </af:toolbar>
+        </f:facet>
+         <!--<af:table value="#{bindings.BmsubcntrTransferHeaderT1.collectionModel}"
+                  var="row"
+                  rows="#{bindings.BmsubcntrTransferHeaderT1.rangeSize}"
+                  emptyText="#{bindings.BmsubcntrTransferHeaderT1.viewable ? '无显示数据' : '权限拒绝'}"
+                  fetchSize="#{bindings.BmsubcntrTransferHeaderT1.rangeSize}"
+                  rowBandingInterval="0"
+                  filterModel="#{bindings.BmsubcntrTransferHeaderTVOCriteriaQuery.queryDescriptor}"
+                  queryListener="#{bindings.BmsubcntrTransferHeaderTVOCriteriaQuery.processQuery}"
+                  filterVisible="false" varStatus="vs"
+                  selectedRowKeys="#{bindings.BmsubcntrTransferHeaderT1.collectionModel.selectedRow}"
+                  selectionListener="#{bindings.BmsubcntrTransferHeaderT1.collectionModel.makeCurrent}"
+                  rowSelection="single" id="t1"
+                  binding="#{backingBeanScope.subcntrTransferBean.transferTable}">
+
+        </af:table>-->
+        <af:table value="#{bindings.BmsubcntrTransferHeaderT1.collectionModel}"
+                  var="row"
+                  rows="#{bindings.BmsubcntrTransferHeaderT1.rangeSize}"
+                  emptyText="#{bindings.BmsubcntrTransferHeaderT1.viewable ? '无显示数据' : '权限拒绝'}"
+                  fetchSize="#{bindings.BmsubcntrTransferHeaderT1.rangeSize}"
+                  rowBandingInterval="0"
+                  filterModel="#{bindings.BmsubcntrTransferHeaderTVOCriteriaQuery.queryDescriptor}"
+                  queryListener="#{bindings.BmsubcntrTransferHeaderTVOCriteriaQuery.processQuery}"
+                  filterVisible="false" varStatus="vs"
+                  selectedRowKeys="#{bindings.BmsubcntrTransferHeaderT1.collectionModel.selectedRow}"
+                  selectionListener="#{bindings.BmsubcntrTransferHeaderT1.collectionModel.makeCurrent}"
+                  rowSelection="single" id="t1"
+                  binding="#{backingBeanScope.subcntrTransferBean.historyTable}">
+          <af:column id="c16" rowHeader="true" width="11"/>
+          <af:column id="c15" headerText="序号" align="center" width="54">
+            <af:outputText value="#{vs.index+1}" id="ot15"/>
+            <f:facet name="footer">
+              <af:outputText value="合计行" id="ot14" visible="true" rendered="#{bindings.BmsubcntrTransferHeaderT1.estimatedRowCount>0}"/>
+            </f:facet>
+          </af:column>
+          <af:column sortProperty="DocumentNumber" filterable="true"
+                     sortable="true"
+                     headerText="#{bindings.BmsubcntrTransferHeaderT1.hints.DocumentNumber.label}"
+                     id="c11" width="175" align="center">
+            <af:outputText value="#{row.DocumentNumber}" id="ot4"/>
+          </af:column>
+          <af:column sortProperty="CntrNumber" filterable="true" sortable="true"
+                     headerText="#{bindings.BmsubcntrTransferHeaderT1.hints.CntrNumber.label}"
+                     id="c8" align="center" width="155">
+            <af:outputText value="#{row.CntrNumber}" id="ot12"/>
+          </af:column>
+          <af:column sortProperty="CntrName" filterable="true" sortable="true"
+                     headerText="#{bindings.BmsubcntrTransferHeaderT1.hints.CntrName.label}"
+                     id="c5" width="255">
+            <af:outputText value="#{row.CntrName}" id="ot6"/>
+          </af:column>
+          <af:column sortProperty="VendorName" filterable="true" sortable="true"
+                     headerText="#{bindings.BmsubcntrTransferHeaderT1.hints.VendorName.label}"
+                     id="c4" width="205">
+            <af:outputText value="#{row.VendorName}" id="ot9"/>
+          </af:column>
+          <af:column sortProperty="BmDocumentType" sortable="true"
+                     headerText="#{bindings.BmsubcntrTransferHeaderT1.hints.BmDocumentType.label}"
+                     id="c2" width="105">
+            <af:selectOneChoice value="#{row.bindings.BmDocumentType.inputValue}"
+                                label="#{row.bindings.BmDocumentType.label}"
+                                required="#{bindings.BmsubcntrTransferHeaderT1.hints.BmDocumentType.mandatory}"
+                                shortDesc="#{bindings.BmsubcntrTransferHeaderT1.hints.BmDocumentType.tooltip}"
+                                id="soc4" readOnly="true">
+              <f:selectItems value="#{row.bindings.BmDocumentType.items}"
+                             id="si4"/>
+            </af:selectOneChoice>
+          </af:column>
+          <af:column sortProperty="BmDocumentNumber" filterable="true"
+                     sortable="true"
+                     headerText="#{bindings.BmsubcntrTransferHeaderT1.hints.BmDocumentNumber.label}"
+                     id="c10" align="center" width="175">
+            <af:outputText value="#{row.BmDocumentNumber}" id="ot2"/>
+          </af:column>
+          <af:column sortProperty="CurrentBmAmount" filterable="true"
+                     sortable="true"
+                     headerText="#{bindings.BmsubcntrTransferHeaderT1.hints.CurrentBmAmount.label}"
+                     id="c14" align="right" width="155">
+            <af:outputText value="#{row.CurrentBmAmount}" id="ot5">
+              <af:convertNumber maxFractionDigits="2" minFractionDigits="2"
+                                type="number"/>
+            </af:outputText>
+            <f:facet name="footer">
+              <af:panelGroupLayout id="pgl4" halign="right"
+                                   rendered="#{bindings.BmsubcntrTransferHeaderT1.estimatedRowCount>0}"
+                                   layout="horizontal">
+                <af:outputText value="#{bindings.SumCurrentBmAmount.inputValue}"
+                               id="ot10"
+                               rendered="#{bindings.BmsubcntrTransferHeaderT1.estimatedRowCount>0}"
+                               partialTriggers="ot5"/>
+              </af:panelGroupLayout>
+            </f:facet>
+          </af:column>
+          <af:column sortProperty="TransferAmount" filterable="true"
+                     sortable="true"
+                     headerText="#{bindings.BmsubcntrTransferHeaderT1.hints.TransferAmount.label}"
+                     id="c12" align="right" width="155">
+            <af:outputText value="#{row.TransferAmount}" id="ot11">
+              <af:convertNumber maxFractionDigits="2" minFractionDigits="2"
+                                type="number"/>
+            </af:outputText>
+            <f:facet name="footer">
+              <af:panelGroupLayout id="pgl3" halign="right"
+                                   rendered="#{bindings.BmsubcntrTransferHeaderT1.estimatedRowCount>0}"
+                                   layout="horizontal">
+                <af:outputText value="#{bindings.SumTransferAmount.inputValue}"
+                               id="ot13"
+                               rendered="#{bindings.BmsubcntrTransferHeaderT1.estimatedRowCount>0}"
+                               partialTriggers="ot11"/>
+              </af:panelGroupLayout>
+            </f:facet>
+          </af:column>
+          <af:column sortProperty="TransferStatus" sortable="true"
+                     headerText="#{bindings.BmsubcntrTransferHeaderT1.hints.TransferStatus.label}"
+                     id="c1" width="105">
+            <af:selectOneChoice value="#{row.bindings.TransferStatus.inputValue}"
+                                label="#{row.bindings.TransferStatus.label}"
+                                required="#{bindings.BmsubcntrTransferHeaderT1.hints.TransferStatus.mandatory}"
+                                shortDesc="#{bindings.BmsubcntrTransferHeaderT1.hints.TransferStatus.tooltip}"
+                                id="soc3" readOnly="true">
+              <f:selectItems value="#{row.bindings.TransferStatus.items}"
+                             id="si3"/>
+            </af:selectOneChoice>
+          </af:column>
+          <af:column sortProperty="TransferErrorMsg" sortable="true"
+                     headerText="#{bindings.BmsubcntrTransferHeaderT1.hints.TransferErrorMsg.label}"
+                     id="c9" width="600" filterable="true">
+            <af:outputText value="#{row.TransferErrorMsg}" id="ot1"
+                           inlineStyle="white-space:-moz-pre-wrap;white-space:pre;white-space: pre-wrap;word-wrap:break-word;">
+              <af:convertNumber groupingUsed="false"
+                                pattern="#{bindings.BmsubcntrTransferHeaderT1.hints.TransferErrorMsg.format}"/>
+            </af:outputText>
+          </af:column>
+          <af:column sortProperty="ErpDocumentNumber" sortable="true"
+                     headerText="#{bindings.BmsubcntrTransferHeaderT1.hints.ErpDocumentNumber.label}"
+                     id="c7" width="250" rendered="true" filterable="true">
+            <af:outputText value="#{row.ErpDocumentNumber}" id="ot3"/>
+          </af:column>
+          <af:column sortProperty="ErpDocumentType" sortable="true"
+                     headerText="#{bindings.BmsubcntrTransferHeaderT1.hints.ErpDocumentType.label}"
+                     id="c6">
+            <af:selectOneChoice value="#{row.bindings.ErpDocumentType.inputValue}"
+                                label="#{row.bindings.ErpDocumentType.label}"
+                                required="#{bindings.BmsubcntrTransferHeaderT1.hints.ErpDocumentType.mandatory}"
+                                shortDesc="#{bindings.BmsubcntrTransferHeaderT1.hints.ErpDocumentType.tooltip}"
+                                id="soc2" readOnly="true">
+              <f:selectItems value="#{row.bindings.ErpDocumentType.items}"
+                             id="si2"/>
+            </af:selectOneChoice>
+          </af:column>
+          <af:column sortProperty="TransferDate" filterable="true"
+                     sortable="true"
+                     headerText="#{bindings.BmsubcntrTransferHeaderT1.hints.TransferDate.label}"
+                     id="c13" width="150">
+            <af:outputText value="#{row.TransferDate}" id="ot7">
+              <af:convertDateTime pattern="#{bindings.BmsubcntrTransferHeaderT1.hints.TransferDate.format}"/>
+            </af:outputText>
+            <f:facet name="filter">
+              <af:inputDate value="#{vs.filterCriteria.TransferDate}" id="id1"/>
+            </f:facet>
+          </af:column>
+          <af:column id="c3"
+                     headerText="#{bindings.BmsubcntrTransferHeaderT1.hints.Description.label}"
+                     width="200" sortProperty="Description" filterable="true"
+                     sortable="true">
+            <af:outputText value="#{row.Description}" id="ot8"/>
+          </af:column>
+        </af:table>
+      </af:panelCollection>
+    </f:facet>
+    <f:facet name="top">
+      <af:panelGroupLayout layout="vertical" id="pgl1">
+        <af:panelGroupLayout layout="vertical" id="pgl2">
+          <af:panelBox text="#{bmsubcntrtransferuiBundle['cn.com.cscec8b.bm.bmsubcntrTransferTaskflow.view.fragments.subcntrTransfer.historyTitle']}"
+                          id="ph1">
+            <af:query id="qryId1"
+                      headerText="#{bmsubcntrtransferuiBundle['cn.com.cscec8b.bm.bmsubcntrTransferTaskflow.view.fragments.subcntrTransfer.query']}"
+                      disclosed="true"
+                      value="#{bindings.BmsubcntrTransferHeaderTVOCriteriaQuery.queryDescriptor}"
+                      model="#{bindings.BmsubcntrTransferHeaderTVOCriteriaQuery.queryModel}"
+                      queryListener="#{backingBeanScope.subcntrTransferBean.transferHistoryQueryListener}"
+                      queryOperationListener="#{bindings.BmsubcntrTransferHeaderTVOCriteriaQuery.processQueryOperation}"
+                      saveQueryMode="hidden" modeChangeVisible="false" rows="3"
+                      maxColumns="3" resultComponentId="::pc1:t1">
+            </af:query>
+            <f:facet name="toolbar">
+              <af:toolbar id="t2">
+                <af:commandToolbarButton id="ctb4"
+                                         icon="/images/icons/undo_enable.gif"
+                                         text="返回" immediate="true"
+                                         actionListener="#{backingBeanScope.subcntrTransferBean.historyBackListener}"
+                                         rendered="#{pageFlowScope.authorityType eq 'VIEW'}"/>
+              </af:toolbar>
+            </f:facet>
+          </af:panelBox>
+          <af:spacer width="10" height="10" id="s1"/>
+        </af:panelGroupLayout>
+      </af:panelGroupLayout>
+    </f:facet>
+  </af:panelStretchLayout>
+</jsp:root>

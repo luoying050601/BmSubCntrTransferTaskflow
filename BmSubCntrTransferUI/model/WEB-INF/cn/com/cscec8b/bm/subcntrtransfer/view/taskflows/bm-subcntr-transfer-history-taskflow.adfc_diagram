@@ -1,0 +1,24 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<SDM>
+   <OverallProperties
+      id="OverallProperties1"/>
+   <View
+      id="View2">
+      <property
+         name="activityId">subCntrTransferHistory</property>
+      <property
+         name="page">/cn/com/cscec8b/bm/subcntrtransfer/view/fragments/subCntrTransferHistory.jsff</property>
+      <property
+         name="start">true</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>subCntrTransferHistory&lt;/b> (Default Activity)&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
+      <property
+         name="exceptionHandler">false</property>
+      <property
+         name="y">220.94238</property>
+      <property
+         name="pageFragment">true</property>
+      <property
+         name="x">337.01562</property>
+   </View>
+</SDM>

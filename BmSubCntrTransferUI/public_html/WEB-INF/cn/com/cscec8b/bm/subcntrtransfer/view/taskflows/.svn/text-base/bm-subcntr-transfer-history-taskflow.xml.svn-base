@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="bm-subcntr-transfer-history-taskflow">
+    <default-activity id="__1">subCntrTransferHistory</default-activity>
+    <input-parameter-definition id="__3">
+      <name id="__2">authorityType</name>
+      <value>#{pageFlowScope.authorityType}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <managed-bean id="__4">
+      <managed-bean-name id="__5">subcntrTransferBean</managed-bean-name>
+      <managed-bean-class id="__7">cn.com.cscec8b.bm.subcntrtransfer.view.backing.SubcntrTransferBean</managed-bean-class>
+      <managed-bean-scope id="__6">backingBean</managed-bean-scope>
+    </managed-bean>
+    <view id="subCntrTransferHistory">
+      <page>/cn/com/cscec8b/bm/subcntrtransfer/view/fragments/subCntrTransferHistory.jsff</page>
+    </view>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

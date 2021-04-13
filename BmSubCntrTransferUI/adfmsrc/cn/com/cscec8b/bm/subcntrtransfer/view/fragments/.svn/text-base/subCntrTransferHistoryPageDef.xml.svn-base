@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.61.92" id="subCntrTransferHistoryPageDef"
+                Package="cn.com.cscec8b.bm.subcntrtransfer.view.fragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="BmsubcntrTransferHeaderT1" RangeSize="25"
+              DataControl="BmSubCntrTransferTaskflowAMDataControl"
+              id="BmsubcntrTransferHeaderT1Iterator"/>
+    <searchRegion Criteria="BmsubcntrTransferHeaderTVOCriteria"
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="BmsubcntrTransferHeaderT1Iterator"
+                  id="BmsubcntrTransferHeaderTVOCriteriaQuery"/>
+    <iterator id="BmSubcntrTransfer1Iterator" Binds="BmSubcntrTransfer1"
+              DataControl="BmSubCntrTransferTaskflowAMDataControl"
+              RangeSize="25"/>
+  </executables>
+  <bindings>
+    <action id="Commit" DataControl="BmSubCntrTransferTaskflowAMDataControl"
+            RequiresUpdateModel="true" Action="commitTransaction"/>
+    <tree IterBinding="BmsubcntrTransferHeaderT1Iterator"
+          id="BmsubcntrTransferHeaderT1">
+      <nodeDefinition DefName="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransferHeaderTVO"
+                      Name="BmsubcntrTransferHeaderT10">
+        <AttrNames>
+          <Item Value="DocumentNumber"/>
+          <Item Value="CntrNumber"/>
+          <Item Value="CntrName"/>
+          <Item Value="VendorName"/>
+          <Item Value="BmDocumentType"/>
+          <Item Value="BmDocumentNumber"/>
+          <Item Value="CurrentBmAmount"/>
+          <Item Value="TransferAmount"/>
+          <Item Value="TransferStatus"/>
+          <Item Value="TransferErrorMsg"/>
+          <Item Value="ErpDocumentNumber"/>
+          <Item Value="ErpDocumentType"/>
+          <Item Value="TransferDate"/>
+          <Item Value="Description"/>
+          <Item Value="BmDocumentId"/>
+          <Item Value="BmGroupId"/>
+          <Item Value="KeyDocumentNumber"/>
+          <Item Value="ProjectId"/>
+          <Item Value="SubcntrId"/>
+          <Item Value="TransferFromDate"/>
+          <Item Value="TransferToDate"/>
+          <Item Value="TransferType"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="updateHeaderStatus"
+                  InstanceName="BmSubCntrTransferTaskflowAMDataControl.dataProvider"
+                  DataControl="BmSubCntrTransferTaskflowAMDataControl"
+                  RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="updateHeaderStatus" IsViewObjectMethod="false">
+      <NamedData NDName="documentNumber" NDType="java.lang.String"/>
+      <NamedData NDName="bmDocumentId" NDType="java.lang.String"/>
+      <NamedData NDName="bmDocumentType" NDType="java.lang.String"/>
+      <NamedData NDName="status" NDType="java.lang.String"/>
+    </methodAction>
+    <attributeValues IterBinding="BmsubcntrTransferHeaderT1Iterator"
+                     id="SumCurrentBmAmount">
+      <AttrNames>
+        <Item Value="SumCurrentBmAmount"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="BmsubcntrTransferHeaderT1Iterator"
+                     id="SumTransferAmount">
+      <AttrNames>
+        <Item Value="SumTransferAmount"/>
+      </AttrNames>
+    </attributeValues>
+    <action id="Rollback" DataControl="BmSubCntrTransferTaskflowAMDataControl"
+            RequiresUpdateModel="false" Action="rollbackTransaction"/>
+  </bindings>
+</pageDefinition>

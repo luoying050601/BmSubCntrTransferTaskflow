@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE JboProject SYSTEM "jbo_03_01.dtd">
+<!---->
+<JboProject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="BmSubCntrTransferModel"
+  Version="11.1.1.62.29"
+  SeparateXMLFiles="true"
+  PackageName="cn.com.cscec8b.bm.subcntrtransfer.model">
+  <DesignTime>
+    <Attr Name="_jprName"
+      Value="../../../../../../../BmSubCntrTransferModel.jpr"/>
+    <Attr Name="_NamedConnection" Value="STMConn"/>
+    <Attr Name="_appModuleNames0"
+      Value="cn.com.cscec8b.bm.subcntrtransfer.model.services.BmSubCntrTransferTaskflowAM"/>
+  </DesignTime>
+  <Containee
+    Name="entities"
+    PackageName="cn.com.cscec8b.bm.subcntrtransfer.model.entities"
+    ObjectType="JboPackage">
+    <DesignTime>
+      <Attr Name="_EO" Value="true"/>
+    </DesignTime>
+  </Containee>
+  <Containee
+    Name="queries"
+    PackageName="cn.com.cscec8b.bm.subcntrtransfer.model.queries"
+    ObjectType="JboPackage">
+    <DesignTime>
+      <Attr Name="_VO" Value="true"/>
+    </DesignTime>
+  </Containee>
+  <Containee
+    Name="services"
+    PackageName="cn.com.cscec8b.bm.subcntrtransfer.model.services"
+    ObjectType="JboPackage">
+    <DesignTime>
+      <Attr Name="_AM" Value="true"/>
+    </DesignTime>
+  </Containee>
+  <AppContainee
+    Name="CscecCommonModel"
+    FullName="cn.com.cscec8b.common.model.CscecCommonModel"
+    ObjectType="JboProject">
+    <DesignTime>
+      <Attr Name="_SourceName" Value="CscecCommonModel.jar"/>
+    </DesignTime>
+  </AppContainee>
+</JboProject>

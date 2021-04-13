@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<BC4JConfig version="11.1" xmlns="http://xmlns.oracle.com/bc4j/configuration">
+   <AppModuleConfigBag ApplicationName="cn.com.cscec8b.bm.subcntrtransfer.model.services.BmSubCntrTransferTaskflowAM">
+      <AppModuleConfig DeployPlatform="LOCAL" jbo.project="cn.com.cscec8b.bm.subcntrtransfer.model.BmSubCntrTransferModel" name="BmSubCntrTransferTaskflowAMLocal" ApplicationName="cn.com.cscec8b.bm.subcntrtransfer.model.services.BmSubCntrTransferTaskflowAM">
+         <Database jbo.locking.mode="optimistic"/>
+         <Security AppModuleJndiName="cn.com.cscec8b.bm.subcntrtransfer.model.services.BmSubCntrTransferTaskflowAM"/>
+         <Custom JDBCDataSource="jdbc/STMConnDS"/>
+      </AppModuleConfig>
+      <AppModuleConfig DeployPlatform="LOCAL" jbo.project="cn.com.cscec8b.bm.subcntrtransfer.model.BmSubCntrTransferModel" name="BmSubCntrTransferTaskflowAMShared" ApplicationName="cn.com.cscec8b.bm.subcntrtransfer.model.services.BmSubCntrTransferTaskflowAM">
+         <AM-Pooling jbo.ampool.dynamicjdbccredentials="false" jbo.ampool.isuseexclusive="false" jbo.ampool.maxpoolsize="1" jbo.ampool.resetnontransactionalstate="false"/>
+         <Database jbo.locking.mode="optimistic"/>
+         <Security AppModuleJndiName="cn.com.cscec8b.bm.subcntrtransfer.model.services.BmSubCntrTransferTaskflowAM"/>
+         <Custom JDBCDataSource="jdbc/STMConnDS"/>
+      </AppModuleConfig>
+   </AppModuleConfigBag>
+</BC4JConfig>

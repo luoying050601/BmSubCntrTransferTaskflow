@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+  <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+  
+  <f:view>
+    <af:document id="d1">
+      <af:resource type="javascript">
+        function transferButtonShowPop(evt) {
+            var popup = AdfPage.PAGE.findComponentByAbsoluteId('pt1:r1:0:p5');
+            if (popup != null) {
+                AdfPage.PAGE.addBusyStateListener(popup, handleBusyState);
+                evt.preventUserInput();
+            }
+        }
+        function handleBusyState(evt) {
+            var popup = AdfPage.PAGE.findComponentByAbsoluteId('pt1:r1:0:p5');
+            if (popup != null) {
+                if (evt.isBusy()) {
+                    popup.show();
+                }
+                else {
+                    popup.hide();
+                    AdfPage.PAGE.removeBusyStateListener(popup, handleBusyState);
+                }
+            }
+        }
+      </af:resource>
+      <af:form id="f1">
+        <!--<af:popup id="p5" contentDelivery="immediate">
+          <af:dialog id="d2" type="none" closeIconVisible="false"
+                     inlineStyle="width:250px; height:150.0px;">
+            <af:panelGroupLayout id="pgl41" layout="vertical" halign="center">
+              <af:image source="/resources/imags/load.gif" id="i1"/>
+              <af:outputText value="" id="ot191"/>
+            </af:panelGroupLayout>
+            <af:panelGroupLayout id="pgl2"
+                                 inlineStyle="height:20px; text-align:center;"
+                                 halign="center">
+              <af:outputText value="数据传送中..." id="ot888"
+                             inlineStyle="color:Black; font-weight:bold;"/>
+            </af:panelGroupLayout>
+          </af:dialog>
+        </af:popup>-->
+        <af:pageTemplate viewId="/templates/cscec8bTemplate.jspx"
+                         value="#{bindings.pageTemplateBinding}" id="pt1">
+          <f:facet name="center">
+            <af:region value="#{bindings.bmsubcntrtransfertaskflow1.regionModel}"
+                       id="r1"/>
+          </f:facet>
+        </af:pageTemplate>
+      </af:form>
+    </af:document>
+  </f:view>
+</jsp:root>

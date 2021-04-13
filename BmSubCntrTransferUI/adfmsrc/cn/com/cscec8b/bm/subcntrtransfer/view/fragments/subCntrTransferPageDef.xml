@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.61.92" id="subCntrTransferPageDef"
+                Package="cn.com.cscec8b.bm.subcntrtransfer.view.fragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="BmSubcntrTransfer1" RangeSize="25"
+              DataControl="BmSubCntrTransferTaskflowAMDataControl"
+              id="BmSubcntrTransfer1Iterator"/>
+    <searchRegion Criteria="subcntrTransferCriteria"
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="BmSubcntrTransfer1Iterator"
+                  id="subcntrTransferCriteriaQuery"/>
+    <iterator id="BmSubcntrTransferHeaderT1Iterator"
+              Binds="BmsubcntrTransferHeaderT1"
+              DataControl="BmSubCntrTransferTaskflowAMDataControl"
+              RangeSize="25"/>
+    <iterator id="BmSubcntrTransferLineT1Iterator"
+              Binds="BmSubcntrTransferLineT1"
+              DataControl="BmSubCntrTransferTaskflowAMDataControl"
+              RangeSize="25"/>
+    <iterator id="BmSubcntrTransferAmount1Iterator"
+              Binds="BmSubcntrTransferAmount1"
+              DataControl="BmSubCntrTransferTaskflowAMDataControl"
+              RangeSize="25"/>
+    <iterator id="BmsubcntrTransferHeaderT2Iterator"
+              Binds="BmsubcntrTransferHeaderT2"
+              DataControl="BmSubCntrTransferTaskflowAMDataControl"
+              RangeSize="25"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="BmSubcntrTransfer1Iterator" id="BmSubcntrTransfer1">
+      <nodeDefinition DefName="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer"
+                      Name="BmSubcntrTransfer10">
+        <AttrNames>
+          <Item Value="CheckedFlag" Binds="CheckedFlag"/>
+          <Item Value="SubcntrNumber"/>
+          <Item Value="SubcntrId"/>
+          <Item Value="VendorName"/>
+          <Item Value="TransferDate"/>
+          <Item Value="CumulativeAuditAmount"/>
+          <Item Value="LeftTransferAuditAmount"/>
+          <Item Value="CurrentAuditAmount"/>
+          <Item Value="CumulativeDeductionAmount"/>
+          <Item Value="LeftTransferDeductionAmount"/>
+          <Item Value="CurrentDeductionAmount"/>
+          <Item Value="CumulativeVisaAmount"/>
+          <Item Value="LeftTransferVisaAmount"/>
+          <Item Value="CurrentVisaAmount"/>
+          <Item Value="TransferStatus"/>
+          <Item Value="TransferDocumentNumber"/>
+          <Item Value="SubcntrName"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="generateBMDocumentNumber"
+                  InstanceName="BmSubCntrTransferTaskflowAMDataControl.dataProvider"
+                  DataControl="BmSubCntrTransferTaskflowAMDataControl"
+                  RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="generateBMDocumentNumber"
+                  IsViewObjectMethod="false"
+                  ReturnName="data.BmSubCntrTransferTaskflowAMDataControl.methodResults.generateBMDocumentNumber_BmSubCntrTransferTaskflowAMDataControl_dataProvider_generateBMDocumentNumber_result">
+      <NamedData NDName="p0" NDType="java.lang.String"/>
+      <NamedData NDName="p1" NDType="java.lang.String"/>
+    </methodAction>
+    <methodAction id="getActualTransferAmount"
+                  InstanceName="BmSubCntrTransferTaskflowAMDataControl.dataProvider"
+                  DataControl="BmSubCntrTransferTaskflowAMDataControl"
+                  RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="getActualTransferAmount"
+                  IsViewObjectMethod="false"
+                  ReturnName="data.BmSubCntrTransferTaskflowAMDataControl.methodResults.getActualTransferAmount_BmSubCntrTransferTaskflowAMDataControl_dataProvider_getActualTransferAmount_result">
+      <NamedData NDName="subcntrId" NDType="oracle.jbo.domain.Number"/>
+      <NamedData NDName="documentNumber" NDType="java.lang.String"/>
+      <NamedData NDName="type" NDType="java.lang.String"/>
+    </methodAction>
+    <methodAction id="transfer"
+                  InstanceName="BmSubCntrTransferTaskflowAMDataControl.dataProvider"
+                  DataControl="BmSubCntrTransferTaskflowAMDataControl"
+                  RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="transfer" IsViewObjectMethod="false"
+                  ReturnName="data.BmSubCntrTransferTaskflowAMDataControl.methodResults.transfer_BmSubCntrTransferTaskflowAMDataControl_dataProvider_transfer_result">
+      <NamedData NDName="subcntrId" NDType="oracle.jbo.domain.Number"/>
+      <NamedData NDName="auditAmount" NDType="oracle.jbo.domain.Number"/>
+      <NamedData NDName="deductionAmount" NDType="oracle.jbo.domain.Number"/>
+      <NamedData NDName="visaAmount" NDType="oracle.jbo.domain.Number"/>
+      <NamedData NDName="transferDate" NDType="oracle.jbo.domain.Date"/>
+      <NamedData NDName="createBy" NDType="oracle.jbo.domain.Number"/>
+    </methodAction>
+    <button IterBinding="BmSubcntrTransfer1Iterator" id="CheckedFlag"
+            DTSupportsMRU="false" StaticList="true">
+      <AttrNames>
+        <Item Value="CheckedFlag"/>
+      </AttrNames>
+      <ValueList>
+        <Item Value="Y"/>
+        <Item Value="N"/>
+      </ValueList>
+    </button>
+    <methodAction id="isValidateTransferDate"
+                  InstanceName="BmSubCntrTransferTaskflowAMDataControl.dataProvider"
+                  DataControl="BmSubCntrTransferTaskflowAMDataControl"
+                  RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="isValidateTransferDate" IsViewObjectMethod="false"
+                  ReturnName="data.BmSubCntrTransferTaskflowAMDataControl.methodResults.isValidateTransferDate_BmSubCntrTransferTaskflowAMDataControl_dataProvider_isValidateTransferDate_result">
+      <NamedData NDName="transferDate" NDType="oracle.jbo.domain.Date"/>
+      <NamedData NDName="orgId" NDType="int"/>
+    </methodAction>
+    <methodAction id="getInvalidTransferStatus"
+                  InstanceName="BmSubCntrTransferTaskflowAMDataControl.dataProvider"
+                  DataControl="BmSubCntrTransferTaskflowAMDataControl"
+                  RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="getInvalidTransferStatus"
+                  IsViewObjectMethod="false"
+                  ReturnName="data.BmSubCntrTransferTaskflowAMDataControl.methodResults.getInvalidTransferStatus_BmSubCntrTransferTaskflowAMDataControl_dataProvider_getInvalidTransferStatus_result">
+      <NamedData NDName="subcntrId" NDType="int"/>
+    </methodAction>
+    <methodAction id="updateTransferHeaderStatus"
+                  InstanceName="BmSubCntrTransferTaskflowAMDataControl.dataProvider"
+                  DataControl="BmSubCntrTransferTaskflowAMDataControl"
+                  RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="updateTransferHeaderStatus"
+                  IsViewObjectMethod="false"
+                  ReturnName="data.BmSubCntrTransferTaskflowAMDataControl.methodResults.updateTransferHeaderStatus_BmSubCntrTransferTaskflowAMDataControl_dataProvider_updateTransferHeaderStatus_result">
+      <NamedData NDName="documentNumer" NDType="java.lang.String"/>
+      <NamedData NDName="status" NDType="java.lang.String"/>
+    </methodAction>
+  </bindings>
+</pageDefinition>

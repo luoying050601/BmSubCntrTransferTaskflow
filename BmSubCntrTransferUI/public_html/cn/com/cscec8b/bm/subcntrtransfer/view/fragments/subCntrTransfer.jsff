@@ -1,0 +1,359 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:c="http://java.sun.com/jsp/jstl/core">
+  <af:resource type="javascript">
+    function transferButtonShowPop(evt) {
+        var popup = AdfPage.PAGE.findComponentByAbsoluteId('pt1:r1:0:p5');
+        if (popup != null) {
+            AdfPage.PAGE.addBusyStateListener(popup, handleBusyState);
+            evt.preventUserInput();
+        }
+    }
+
+    function handleBusyState(evt) {
+        var popup = AdfPage.PAGE.findComponentByAbsoluteId('pt1:r1:0:p5');
+        if (popup != null) {
+            if (evt.isBusy()) {
+                popup.show();
+            }
+            else {
+                popup.hide();
+                AdfPage.PAGE.removeBusyStateListener(popup, handleBusyState);
+            }
+        }
+    }
+  </af:resource>
+  <c:set var="bmsubcntrtransferuiBundle"
+         value="#{adfBundle['cn.com.cscec8b.bm.subcntrtransfer.view.BmSubCntrTransferUIBundle']}"/>
+  <af:popup id="p5" contentDelivery="immediate">
+    <af:dialog id="d2" type="none" closeIconVisible="false"
+               inlineStyle="width:250px; height:150.0px;">
+      <af:panelGroupLayout id="pgl41" layout="vertical" halign="center">
+        <af:image source="/resources/imags/load.gif" id="i1"/>
+        <af:outputText value="" id="ot191"/>
+      </af:panelGroupLayout>
+      <af:panelGroupLayout id="pgl2"
+                           inlineStyle="height:20px; text-align:center;"
+                           halign="center">
+        <af:outputText value="数据传送中..." id="ot888"
+                       inlineStyle="color:Black; font-weight:bold;"/>
+      </af:panelGroupLayout>
+    </af:dialog>
+  </af:popup>
+  <af:panelStretchLayout id="psl1" startWidth="auto" endWidth="auto"
+                         topHeight="auto" bottomHeight="auto">
+    <f:facet name="bottom"></f:facet>
+    <f:facet name="center">
+      <af:panelCollection id="pc1" featuresOff="detach statusBar">
+        <f:facet name="menus"/>
+        <f:facet name="toolbar">
+          <af:toolbar id="t2">
+            <af:panelGroupLayout id="pgl3" layout="horizontal">
+              <af:commandToolbarButton text="#{bmsubcntrtransferuiBundle['cn.com.cscec8b.bm.bmsubcntrTransferTaskflow.view.fragments.subcntrTransfer.transfer']}"
+                                       id="ctb1"
+                                       actionListener="#{backingBeanScope.subcntrTransferBean.transferActionListener}"
+                                       partialTriggers="t1"
+                                       binding="#{backingBeanScope.subcntrTransferBean.transferButton}"
+                                       styleClass="stress_button"
+                                       partialSubmit="true"
+                                       clientComponent="true">
+                <af:clientListener method="transferButtonShowPop"
+                                   type="action"/>
+              </af:commandToolbarButton>
+              <af:commandToolbarButton text="#{bmsubcntrtransferuiBundle['cn.com.cscec8b.bm.bmsubcntrTransferTaskflow.view.fragments.subcntrTransfer.goHistory']}"
+                                       id="ctb2" immediate="true"
+                                       actionListener="#{backingBeanScope.subcntrTransferBean.goHistoryListener}"
+                                       styleClass="stress_button"
+                                       rendered="#{pageFlowScope.authorityType eq 'VIEW'}"/>
+              <f:facet name="separator">
+                <af:spacer width="10" height="10" id="s1"/>
+              </f:facet>
+            </af:panelGroupLayout>
+          </af:toolbar>
+        </f:facet>
+        <f:facet name="statusbar"/>
+        <af:table value="#{bindings.BmSubcntrTransfer1.collectionModel}"
+                  var="row" rows="#{bindings.BmSubcntrTransfer1.rangeSize}"
+                  emptyText="#{bindings.BmSubcntrTransfer1.viewable ?'无显示数据' : '权限拒绝'}"
+                  fetchSize="#{bindings.BmSubcntrTransfer1.rangeSize}"
+                  rowBandingInterval="0"
+                  selectionListener="#{bindings.BmSubcntrTransfer1.collectionModel.makeCurrent}"
+                  rowSelection="multiple" id="t1" varStatus="vs"
+                  editingMode="editAll"
+                  binding="#{backingBeanScope.subcntrTransferBean.transferTable}"
+                  immediate="true"
+                  filterModel="#{bindings.subcntrTransferCriteriaQuery.queryDescriptor}"
+                  queryListener="#{bindings.subcntrTransferCriteriaQuery.processQuery}"
+                  filterVisible="false">
+          <af:column id="c19" width="5" rowHeader="true" headerText=""/>
+          <af:column id="c18" width="70" align="center" headerText="">
+            <f:facet name="header">
+              <af:selectBooleanCheckbox text="#{bmsubcntrtransferuiBundle['cn.com.cscec8b.bm.bmsubcntrTransferTaskflow.view.fragments.subcntrTransfer.checkAllTitle']}"
+                                        id="sbc2"
+                                        valueChangeListener="#{backingBeanScope.subcntrTransferBean.checkAllListener}"
+                                        autoSubmit="true"
+                                        binding="#{backingBeanScope.subcntrTransferBean.checkAll}"/>
+            </f:facet>
+            <af:selectBooleanCheckbox value="#{row.bindings.CheckedFlag.inputValue}"
+                                      label="#{row.bindings.CheckedFlag.label}"
+                                      shortDesc="#{bindings.BmSubcntrTransfer1.hints.CheckedFlag.tooltip}"
+                                      id="sbc1" autoSubmit="true"/>
+          </af:column>
+          <af:column id="c17" width="50" align="center"
+                     headerText="#{bmsubcntrtransferuiBundle['cn.com.cscec8b.bm.bmsubcntrTransferTaskflow.view.fragments.subcntrTransfer.seq']}">
+            <af:outputText value="#{vs.index+1}" id="ot1"/>
+          </af:column>
+          <af:column sortProperty="SubcntrNumber" sortable="true"
+                     headerText="#{bindings.BmSubcntrTransfer1.hints.SubcntrNumber.label}"
+                     id="c1" filterable="true" align="center" width="150">
+            <af:inputListOfValues id="subcntrNumberId"
+                                  popupTitle="Search and Select: #{bindings.BmSubcntrTransfer1.hints.SubcntrNumber.label}"
+                                  value="#{row.bindings.SubcntrNumber.inputValue}"
+                                  model="#{row.bindings.SubcntrNumber.listOfValuesModel}"
+                                  required="#{bindings.BmSubcntrTransfer1.hints.SubcntrNumber.mandatory}"
+                                  columns="#{bindings.BmSubcntrTransfer1.hints.SubcntrNumber.displayWidth}"
+                                  shortDesc="#{bindings.BmSubcntrTransfer1.hints.SubcntrNumber.tooltip}"
+                                  autoSubmit="true" readOnly="true">
+              <f:validator binding="#{row.bindings.SubcntrNumber.validator}"/>
+            </af:inputListOfValues>
+          </af:column>
+          <af:column id="c10" width="300"
+                     headerText="#{bindings.BmSubcntrTransfer1.hints.SubcntrName.label}">
+            <af:outputText value="#{row.SubcntrName}" id="ot2"/>
+          </af:column>
+          <af:column sortProperty="SubcntrId" sortable="true"
+                     headerText="#{bindings.BmSubcntrTransfer1.hints.SubcntrId.label}"
+                     id="c12" filterable="true" rendered="false">
+            <af:inputText value="#{row.bindings.SubcntrId.inputValue}"
+                          label="#{bindings.BmSubcntrTransfer1.hints.SubcntrId.label}"
+                          required="#{bindings.BmSubcntrTransfer1.hints.SubcntrId.mandatory}"
+                          columns="#{bindings.BmSubcntrTransfer1.hints.SubcntrId.displayWidth}"
+                          maximumLength="#{bindings.BmSubcntrTransfer1.hints.SubcntrId.precision}"
+                          shortDesc="#{bindings.BmSubcntrTransfer1.hints.SubcntrId.tooltip}"
+                          id="it8">
+              <f:validator binding="#{row.bindings.SubcntrId.validator}"/>
+              <af:convertNumber groupingUsed="false"
+                                pattern="#{bindings.BmSubcntrTransfer1.hints.SubcntrId.format}"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="VendorName" sortable="true"
+                     headerText="#{bindings.BmSubcntrTransfer1.hints.VendorName.label}"
+                     id="c11" width="250" filterable="true">
+            <af:outputText value="#{row.VendorName}" id="ot4"/>
+          </af:column>
+          <af:column id="c14"
+                     headerText="#{bindings.BmSubcntrTransfer1.hints.TransferDate.label}"
+                     showRequired="true" sortProperty="TransferDate"
+                     filterable="true" sortable="false" width="130">
+            <af:inputDate value="#{row.bindings.TransferDate.inputValue}"
+                          label="#{bindings.BmSubcntrTransfer1.hints.TransferDate.label}"
+                          required="false"
+                          shortDesc="#{bindings.BmSubcntrTransfer1.hints.TransferDate.tooltip}"
+                          id="id1" autoSubmit="true"
+                          maxValue="#{backingBeanScope.subcntrTransferBean.currentDateTime}">
+              <f:validator binding="#{row.bindings.TransferDate.validator}"/>
+              <af:convertDateTime pattern="#{bindings.BmSubcntrTransfer1.hints.TransferDate.format}"/>
+            </af:inputDate>
+            <f:facet name="filter">
+              <af:inputDate value="#{vs.filterCriteria.TransferDate}" id="id2"/>
+            </f:facet>
+          </af:column>
+          <af:column sortProperty="CumulativeAuditAmount" sortable="true"
+                     headerText="#{bindings.BmSubcntrTransfer1.hints.CumulativeAuditAmount.label}"
+                     id="c15" filterable="true" align="right">
+            <af:inputText value="#{row.bindings.CumulativeAuditAmount.inputValue}"
+                          label="#{bindings.BmSubcntrTransfer1.hints.CumulativeAuditAmount.label}"
+                          required="#{bindings.BmSubcntrTransfer1.hints.CumulativeAuditAmount.mandatory}"
+                          columns="#{bindings.BmSubcntrTransfer1.hints.CumulativeAuditAmount.displayWidth}"
+                          maximumLength="#{bindings.BmSubcntrTransfer1.hints.CumulativeAuditAmount.precision}"
+                          shortDesc="#{bindings.BmSubcntrTransfer1.hints.CumulativeAuditAmount.tooltip}"
+                          id="it14" readOnly="true">
+              <f:validator binding="#{row.bindings.CumulativeAuditAmount.validator}"/>
+              <af:convertNumber maxFractionDigits="2" minFractionDigits="2"
+                                type="number"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="LeftTransferAuditAmount" sortable="true"
+                     headerText="#{bindings.BmSubcntrTransfer1.hints.LeftTransferAuditAmount.label}"
+                     id="c3" filterable="true" align="right">
+            <af:inputText value="#{row.bindings.LeftTransferAuditAmount.inputValue}"
+                          label="#{bindings.BmSubcntrTransfer1.hints.LeftTransferAuditAmount.label}"
+                          required="#{bindings.BmSubcntrTransfer1.hints.LeftTransferAuditAmount.mandatory}"
+                          columns="#{bindings.BmSubcntrTransfer1.hints.LeftTransferAuditAmount.displayWidth}"
+                          maximumLength="#{bindings.BmSubcntrTransfer1.hints.LeftTransferAuditAmount.precision}"
+                          shortDesc="#{bindings.BmSubcntrTransfer1.hints.LeftTransferAuditAmount.tooltip}"
+                          id="it12" readOnly="true">
+              <f:validator binding="#{row.bindings.LeftTransferAuditAmount.validator}"/>
+              <af:convertNumber maxFractionDigits="2" minFractionDigits="2"
+                                type="number"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="CurrentAuditAmount" sortable="true"
+                     headerText="#{bindings.BmSubcntrTransfer1.hints.CurrentAuditAmount.label}"
+                     id="c7" filterable="true" align="right">
+            <af:inputText value="#{row.bindings.CurrentAuditAmount.inputValue}"
+                          label="#{bindings.BmSubcntrTransfer1.hints.CurrentAuditAmount.label}"
+                          required="#{bindings.BmSubcntrTransfer1.hints.CurrentAuditAmount.mandatory}"
+                          columns="#{bindings.BmSubcntrTransfer1.hints.CurrentAuditAmount.displayWidth}"
+                          maximumLength="#{bindings.BmSubcntrTransfer1.hints.CurrentAuditAmount.precision}"
+                          shortDesc="#{bindings.BmSubcntrTransfer1.hints.CurrentAuditAmount.tooltip}"
+                          id="it11" autoSubmit="true"
+                          contentStyle="text-align:right;">
+              <af:validateDoubleRange id="dd2" minimum="0.0"
+                                      maximum="#{row.bindings.LeftTransferAuditAmount.inputValue.value &lt;0 ? 0 : row.bindings.LeftTransferAuditAmount.inputValue.value}"/>
+              <f:validator binding="#{row.bindings.CurrentAuditAmount.validator}"/>
+              <af:convertNumber maxFractionDigits="2" minFractionDigits="2"
+                                type="number"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="CumulativeDeductionAmount" sortable="true"
+                     headerText="#{bindings.BmSubcntrTransfer1.hints.CumulativeDeductionAmount.label}"
+                     id="c13" filterable="true" align="right">
+            <af:inputText value="#{row.bindings.CumulativeDeductionAmount.inputValue}"
+                          label="#{bindings.BmSubcntrTransfer1.hints.CumulativeDeductionAmount.label}"
+                          required="#{bindings.BmSubcntrTransfer1.hints.CumulativeDeductionAmount.mandatory}"
+                          columns="#{bindings.BmSubcntrTransfer1.hints.CumulativeDeductionAmount.displayWidth}"
+                          maximumLength="#{bindings.BmSubcntrTransfer1.hints.CumulativeDeductionAmount.precision}"
+                          shortDesc="#{bindings.BmSubcntrTransfer1.hints.CumulativeDeductionAmount.tooltip}"
+                          id="it2" readOnly="true">
+              <f:validator binding="#{row.bindings.CumulativeDeductionAmount.validator}"/>
+              <af:convertNumber maxFractionDigits="2" minFractionDigits="2"
+                                type="number"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="LeftTransferDeductionAmount" sortable="true"
+                     headerText="#{bindings.BmSubcntrTransfer1.hints.LeftTransferDeductionAmount.label}"
+                     id="c6" filterable="true" align="right">
+            <af:inputText value="#{row.bindings.LeftTransferDeductionAmount.inputValue}"
+                          label="#{bindings.BmSubcntrTransfer1.hints.LeftTransferDeductionAmount.label}"
+                          required="#{bindings.BmSubcntrTransfer1.hints.LeftTransferDeductionAmount.mandatory}"
+                          columns="#{bindings.BmSubcntrTransfer1.hints.LeftTransferDeductionAmount.displayWidth}"
+                          maximumLength="#{bindings.BmSubcntrTransfer1.hints.LeftTransferDeductionAmount.precision}"
+                          shortDesc="#{bindings.BmSubcntrTransfer1.hints.LeftTransferDeductionAmount.tooltip}"
+                          id="it10" readOnly="true">
+              <f:validator binding="#{row.bindings.LeftTransferDeductionAmount.validator}"/>
+              <af:convertNumber maxFractionDigits="2" minFractionDigits="2"
+                                type="number"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="CurrentDeductionAmount" sortable="true"
+                     headerText="#{bindings.BmSubcntrTransfer1.hints.CurrentDeductionAmount.label}"
+                     id="c9" filterable="true" align="right">
+            <af:inputText value="#{row.bindings.CurrentDeductionAmount.inputValue}"
+                          label="#{bindings.BmSubcntrTransfer1.hints.CurrentDeductionAmount.label}"
+                          required="#{bindings.BmSubcntrTransfer1.hints.CurrentDeductionAmount.mandatory}"
+                          columns="#{bindings.BmSubcntrTransfer1.hints.CurrentDeductionAmount.displayWidth}"
+                          maximumLength="#{bindings.BmSubcntrTransfer1.hints.CurrentDeductionAmount.precision}"
+                          shortDesc="#{bindings.BmSubcntrTransfer1.hints.CurrentDeductionAmount.tooltip}"
+                          id="it4" readOnly="true">
+              <f:validator binding="#{row.bindings.CurrentDeductionAmount.validator}"/>
+              <af:convertNumber maxFractionDigits="2" minFractionDigits="2"
+                                type="number"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="CumulativeVisaAmount" sortable="true"
+                     headerText="#{bindings.BmSubcntrTransfer1.hints.CumulativeVisaAmount.label}"
+                     id="c5" filterable="true" align="right">
+            <af:inputText value="#{row.bindings.CumulativeVisaAmount.inputValue}"
+                          label="#{bindings.BmSubcntrTransfer1.hints.CumulativeVisaAmount.label}"
+                          required="#{bindings.BmSubcntrTransfer1.hints.CumulativeVisaAmount.mandatory}"
+                          columns="#{bindings.BmSubcntrTransfer1.hints.CumulativeVisaAmount.displayWidth}"
+                          maximumLength="#{bindings.BmSubcntrTransfer1.hints.CumulativeVisaAmount.precision}"
+                          shortDesc="#{bindings.BmSubcntrTransfer1.hints.CumulativeVisaAmount.tooltip}"
+                          id="it13" readOnly="true">
+              <f:validator binding="#{row.bindings.CumulativeVisaAmount.validator}"/>
+              <af:convertNumber maxFractionDigits="2" minFractionDigits="2"
+                                type="number"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="LeftTransferVisaAmount" sortable="true"
+                     headerText="#{bindings.BmSubcntrTransfer1.hints.LeftTransferVisaAmount.label}"
+                     id="c16" filterable="true" align="right">
+            <af:inputText value="#{row.bindings.LeftTransferVisaAmount.inputValue}"
+                          label="#{bindings.BmSubcntrTransfer1.hints.LeftTransferVisaAmount.label}"
+                          required="#{bindings.BmSubcntrTransfer1.hints.LeftTransferVisaAmount.mandatory}"
+                          columns="#{bindings.BmSubcntrTransfer1.hints.LeftTransferVisaAmount.displayWidth}"
+                          maximumLength="#{bindings.BmSubcntrTransfer1.hints.LeftTransferVisaAmount.precision}"
+                          shortDesc="#{bindings.BmSubcntrTransfer1.hints.LeftTransferVisaAmount.tooltip}"
+                          id="it1" readOnly="true">
+              <f:validator binding="#{row.bindings.LeftTransferVisaAmount.validator}"/>
+              <af:convertNumber maxFractionDigits="2" minFractionDigits="2"
+                                type="number"/>
+            </af:inputText>
+          </af:column>
+          <af:column sortProperty="CurrentVisaAmount" sortable="true"
+                     headerText="#{bindings.BmSubcntrTransfer1.hints.CurrentVisaAmount.label}"
+                     id="c4" filterable="true" align="right">
+            <af:inputText value="#{row.bindings.CurrentVisaAmount.inputValue}"
+                          label="#{bindings.BmSubcntrTransfer1.hints.CurrentVisaAmount.label}"
+                          required="#{bindings.BmSubcntrTransfer1.hints.CurrentVisaAmount.mandatory}"
+                          columns="#{bindings.BmSubcntrTransfer1.hints.CurrentVisaAmount.displayWidth}"
+                          maximumLength="#{bindings.BmSubcntrTransfer1.hints.CurrentVisaAmount.precision}"
+                          shortDesc="#{bindings.BmSubcntrTransfer1.hints.CurrentVisaAmount.tooltip}"
+                          id="it3" autoSubmit="true"
+                          contentStyle="text-align:right;">
+              <af:validateDoubleRange id="dd3" minimum="0.0"
+                                      maximum="#{row.bindings.LeftTransferVisaAmount.inputValue.value &lt; 0 ? 0 : row.bindings.LeftTransferVisaAmount.inputValue.value}"/>
+              <f:validator binding="#{row.bindings.CurrentVisaAmount.validator}"/>
+              <af:convertNumber maxFractionDigits="2" minFractionDigits="2"
+                                type="number"/>
+            </af:inputText>
+          </af:column>
+          <af:column id="c20" headerText="本次拟传送合计金额">
+            <af:outputText value="#{row.bindings.CurrentAuditAmount.inputValue.value+row.bindings.CurrentDeductionAmount.inputValue.value+row.bindings.CurrentVisaAmount.inputValue.value}"
+                           id="ot3" partialTriggers="it11 it3">
+              <af:convertNumber maxFractionDigits="2" minFractionDigits="2"
+                                type="number"/>
+            </af:outputText>
+          </af:column>
+          <af:column sortProperty="TransferStatus" sortable="true"
+                     headerText="#{bindings.BmSubcntrTransfer1.hints.TransferStatus.label}"
+                     id="c8" filterable="true">
+            <af:selectOneChoice value="#{row.bindings.TransferStatus.inputValue}"
+                                label="#{row.bindings.TransferStatus.label}"
+                                required="#{bindings.BmSubcntrTransfer1.hints.TransferStatus.mandatory}"
+                                shortDesc="#{bindings.BmSubcntrTransfer1.hints.TransferStatus.tooltip}"
+                                id="soc1" readOnly="true" autoSubmit="true">
+              <f:selectItems value="#{row.bindings.TransferStatus.items}"
+                             id="si1"/>
+            </af:selectOneChoice>
+          </af:column>
+          <af:column sortProperty="TransferDocumentNumber" sortable="true"
+                     headerText="#{bindings.BmSubcntrTransfer1.hints.TransferDocumentNumber.label}"
+                     id="c2" filterable="true" align="center" width="150">
+            <af:inputText value="#{row.bindings.TransferDocumentNumber.inputValue}"
+                          label="#{bindings.BmSubcntrTransfer1.hints.TransferDocumentNumber.label}"
+                          required="#{bindings.BmSubcntrTransfer1.hints.TransferDocumentNumber.mandatory}"
+                          columns="#{bindings.BmSubcntrTransfer1.hints.TransferDocumentNumber.displayWidth}"
+                          maximumLength="#{bindings.BmSubcntrTransfer1.hints.TransferDocumentNumber.precision}"
+                          shortDesc="#{bindings.BmSubcntrTransfer1.hints.TransferDocumentNumber.tooltip}"
+                          id="it6" readOnly="true" autoSubmit="true">
+              <f:validator binding="#{row.bindings.TransferDocumentNumber.validator}"/>
+            </af:inputText>
+          </af:column>
+        </af:table>
+      </af:panelCollection>
+    </f:facet>
+    <f:facet name="start"/>
+    <f:facet name="end"/>
+    <f:facet name="top">
+      <af:panelGroupLayout layout="vertical" id="pgl1">
+        <af:panelBox text="#{bmsubcntrtransferuiBundle['cn.com.cscec8b.bm.bmsubcntrTransferTaskflow.view.fragments.subcntrTransfer.queryTitle']}"
+                        id="ph1">
+          <af:query id="qryId1"
+                    headerText="#{bmsubcntrtransferuiBundle['cn.com.cscec8b.bm.bmsubcntrTransferTaskflow.view.fragments.subcntrTransfer.query']}"
+                    disclosed="true"
+                    value="#{bindings.subcntrTransferCriteriaQuery.queryDescriptor}"
+                    model="#{bindings.subcntrTransferCriteriaQuery.queryModel}"
+                    queryListener="#{backingBeanScope.subcntrTransferBean.transferQueryListener}"
+                    queryOperationListener="#{bindings.subcntrTransferCriteriaQuery.processQueryOperation}"
+                    saveQueryMode="hidden" modeChangeVisible="false"
+                    resultComponentId="::pc1:t1" rows="1" maxColumns="2"/>
+        </af:panelBox>
+        <af:spacer width="10" height="10" id="s2"/>
+      </af:panelGroupLayout>
+    </f:facet>
+  </af:panelStretchLayout>
+</jsp:root>

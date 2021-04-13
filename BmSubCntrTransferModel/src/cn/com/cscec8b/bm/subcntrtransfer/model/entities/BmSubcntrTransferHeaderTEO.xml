@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="BmSubcntrTransferHeaderTEO"
+  Version="11.1.1.62.29"
+  InheritPersonalization="true"
+  DBObjectType="table"
+  DBObjectName="BM.BM_SUBCNTR_TRANSFER_HEADER_T"
+  AliasName="BmSubcntrTransferHeaderTEO"
+  BindingStyle="OracleName"
+  UseGlueCode="false"
+  RowClass="cn.com.cscec8b.framework.model.common.CustomEntityImpl"
+  DefClass="cn.com.cscec8b.framework.model.common.CustomEntityDefImpl"
+  CollClass="cn.com.cscec8b.framework.model.common.CustomEntityCache">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access"/>
+    <AttrArray Name="_publishEvents"/>
+  </DesignTime>
+  <Attribute
+    Name="DocumentNumber"
+    IsNotNull="true"
+    Precision="30"
+    ColumnName="DOCUMENT_NUMBER"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="BmDocumentId"
+    IsNotNull="true"
+    ColumnName="BM_DOCUMENT_ID"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="TransferDate"
+    ColumnName="TRANSFER_DATE"
+    SQLType="TIMESTAMP"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="TransferAmount"
+    IsNotNull="true"
+    ColumnName="TRANSFER_AMOUNT"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="TransferErrorMsg"
+    ColumnName="TRANSFER_ERROR_MSG"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T"
+    Precision="400">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ObjectVersionNumber"
+    ColumnName="OBJECT_VERSION_NUMBER"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T"
+    HistoryColumn="VersionHistory">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CreationDate"
+    IsNotNull="true"
+    ColumnName="CREATION_DATE"
+    SQLType="TIMESTAMP"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T"
+    IsUpdateable="while_insert"
+    HistoryColumn="DateHistory">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CreatedBy"
+    IsNotNull="true"
+    ColumnName="CREATED_BY"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T"
+    IsUpdateable="while_insert"
+    HistoryColumn="UserHistory">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="LastUpdatedBy"
+    IsNotNull="true"
+    ColumnName="LAST_UPDATED_BY"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T"
+    HistoryColumn="UserHistory">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="LastUpdateDate"
+    IsNotNull="true"
+    ColumnName="LAST_UPDATE_DATE"
+    SQLType="TIMESTAMP"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T"
+    HistoryColumn="DateHistory">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="AttributeCategory"
+    Precision="30"
+    ColumnName="ATTRIBUTE_CATEGORY"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Attribute1"
+    Precision="240"
+    ColumnName="ATTRIBUTE1"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="240"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Attribute2"
+    Precision="240"
+    ColumnName="ATTRIBUTE2"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="240"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Attribute3"
+    Precision="240"
+    ColumnName="ATTRIBUTE3"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="240"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Attribute4"
+    Precision="240"
+    ColumnName="ATTRIBUTE4"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="240"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Attribute5"
+    Precision="240"
+    ColumnName="ATTRIBUTE5"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="240"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Attribute6"
+    Precision="240"
+    ColumnName="ATTRIBUTE6"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="240"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Attribute7"
+    Precision="240"
+    ColumnName="ATTRIBUTE7"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="240"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Attribute8"
+    Precision="240"
+    ColumnName="ATTRIBUTE8"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="240"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Attribute9"
+    Precision="240"
+    ColumnName="ATTRIBUTE9"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="240"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Attribute10"
+    Precision="240"
+    ColumnName="ATTRIBUTE10"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="240"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Attribute11"
+    Precision="240"
+    ColumnName="ATTRIBUTE11"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="240"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Attribute12"
+    Precision="240"
+    ColumnName="ATTRIBUTE12"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="240"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Attribute13"
+    Precision="240"
+    ColumnName="ATTRIBUTE13"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="240"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Attribute14"
+    Precision="240"
+    ColumnName="ATTRIBUTE14"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="240"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Attribute15"
+    Precision="240"
+    ColumnName="ATTRIBUTE15"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="240"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="TransferStatus"
+    IsNotNull="true"
+    Precision="30"
+    ColumnName="TRANSFER_STATUS"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="TransferType"
+    Precision="30"
+    ColumnName="TRANSFER_TYPE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ErpDocumentNumber"
+    Precision="100"
+    ColumnName="ERP_DOCUMENT_NUMBER"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ErpDocumentType"
+    Precision="30"
+    ColumnName="ERP_DOCUMENT_TYPE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="SubcntrId"
+    ColumnName="SUBCNTR_ID"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="BmDocumentType"
+    IsNotNull="true"
+    Precision="30"
+    ColumnName="BM_DOCUMENT_TYPE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Description"
+    Precision="400"
+    ColumnName="DESCRIPTION"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="400"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="BmGroupId"
+    ColumnName="BM_GROUP_ID"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="KeyDocumentNumber"
+    Precision="100"
+    ColumnName="KEY_DOCUMENT_NUMBER"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="BM.BM_SUBCNTR_TRANSFER_HEADER_T">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </Attribute>
+  <Key
+    Name="BmSubcntrTransferHeaderPk"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="BM_SUBCNTR_TRANSFER_HEADER_PK"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="cn.com.cscec8b.bm.subcntrtransfer.model.entities.BmSubcntrTransferHeaderTEO.DocumentNumber"/>
+      <Item
+        Value="cn.com.cscec8b.bm.subcntrtransfer.model.entities.BmSubcntrTransferHeaderTEO.BmDocumentId"/>
+      <Item
+        Value="cn.com.cscec8b.bm.subcntrtransfer.model.entities.BmSubcntrTransferHeaderTEO.BmDocumentType"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC00628441">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C00628441"/>
+      <Attr Name="_checkCondition" Value='"TRANSFER_AMOUNT" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="cn.com.cscec8b.bm.subcntrtransfer.model.entities.BmSubcntrTransferHeaderTEO.TransferAmount"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC00628444">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C00628444"/>
+      <Attr Name="_checkCondition" Value='"CREATION_DATE" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="cn.com.cscec8b.bm.subcntrtransfer.model.entities.BmSubcntrTransferHeaderTEO.CreationDate"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC00628445">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C00628445"/>
+      <Attr Name="_checkCondition" Value='"CREATED_BY" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="cn.com.cscec8b.bm.subcntrtransfer.model.entities.BmSubcntrTransferHeaderTEO.CreatedBy"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC00628446">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C00628446"/>
+      <Attr Name="_checkCondition" Value='"LAST_UPDATED_BY" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="cn.com.cscec8b.bm.subcntrtransfer.model.entities.BmSubcntrTransferHeaderTEO.LastUpdatedBy"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC00628447">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C00628447"/>
+      <Attr Name="_checkCondition" Value='"LAST_UPDATE_DATE" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="cn.com.cscec8b.bm.subcntrtransfer.model.entities.BmSubcntrTransferHeaderTEO.LastUpdateDate"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC00633594">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C00633594"/>
+      <Attr Name="_checkCondition" Value='"TRANSFER_STATUS" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="cn.com.cscec8b.bm.subcntrtransfer.model.entities.BmSubcntrTransferHeaderTEO.TransferStatus"/>
+    </AttrArray>
+  </Key>
+</Entity>

@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="BmSubcntrTransfer"
+  Version="11.1.1.61.92"
+  InheritPersonalization="true"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="cn.com.cscec8b.framework.model.common.CustomViewRowImpl"
+  ComponentClass="cn.com.cscec8b.framework.model.common.CustomViewObjectImpl"
+  DefClass="cn.com.cscec8b.framework.model.common.CustomViewDefImpl"
+  PageIterMode="Full"
+  UseGlueCode="false">
+  <DesignTime>
+    <Attr Name="_isExpertMode" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="bvProjectId"
+    Kind="where"
+    Type="oracle.jbo.domain.Number">
+    <TransientExpression><![CDATA[adf.context.pageFlowScope.currentLoginUser.projectId]]></TransientExpression>
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYHINT
+          Value="Hide"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Variable>
+  <ViewAccessor
+    Name="StmConfirmedSubCntrLovVO1"
+    ViewObjectName="cn.com.cscec8b.common.model.queries.lovs.StmConfirmedSubCntrLovVO">
+    <ViewCriteriaUsage
+      Name="Normal"
+      FullName="cn.com.cscec8b.common.model.queries.lovs.StmConfirmedSubCntrLovVO.Normal"/>
+    <ParameterMap>
+      <PIMap Variable="bvProjectId">
+        <TransientExpression><![CDATA[adf.context.pageFlowScope.currentLoginUser.projectId]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="TransferStatusLookupLovVO1"
+    ViewObjectName="cn.com.cscec8b.common.model.queries.lovs.StmLookupLovVO">
+    <ViewCriteriaUsage
+      Name="byLookupTypeVC"
+      FullName="cn.com.cscec8b.common.model.queries.lovs.StmLookupLovVO.byLookupTypeVC"/>
+    <ParameterMap>
+      <PIMap Variable="bvLookupType">
+        <TransientExpression><![CDATA['BM_SUBCNTR_TRANSFER_STATUS']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="BmSubcntrCustomersLovVO1"
+    ViewObjectName="cn.com.cscec8b.common.model.queries.lovs.BmSubcntrCustomersLovVO">
+    <ViewCriteriaUsage
+      Name="BmSubcntrCustomersLovVOCriteria"
+      FullName="cn.com.cscec8b.common.model.queries.lovs.BmSubcntrCustomersLovVO.BmSubcntrCustomersLovVOCriteria"/>
+    <ParameterMap>
+      <PIMap Variable="bvProjectId">
+        <TransientExpression><![CDATA[adf.context.pageFlowScope.currentLoginUser.projectId]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ListBinding
+    Name="LOV_SubcntrNumber"
+    ListVOName="StmConfirmedSubCntrLovVO1"
+    ListRangeSize="10"
+    NullValueFlag="none"
+    NullValueId="LOV_SubcntrNumber_LOVUIHints_NullValueId"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="SubcntrNumber"/>
+    </AttrArray>
+    <AttrArray Name="DerivedAttrNames">
+      <Item Value="SubcntrId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="ContractNumber"/>
+      <Item Value="ContractId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="ContractNumber"/>
+      <Item Value="VendorName"/>
+      <Item Value="ContractName"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="Normal"
+      Hint="showAndExecute"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TransferStatus"
+    ListVOName="TransferStatusLookupLovVO1"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TransferStatus"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Meaning"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_VendorName"
+    ListVOName="BmSubcntrCustomersLovVO1"
+    ListRangeSize="10"
+    NullValueFlag="none"
+    NullValueId="LOV_VendorName_LOVUIHints_NullValueId"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="VendorName"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="VendorName"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="VendorCode"/>
+      <Item Value="VendorName"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="BmSubcntrCustomersLovVOCriteria"
+      Hint="showAndExecute"/>
+  </ListBinding>
+  <SQLQuery>
+    <![CDATA[SELECT *
+  FROM (SELECT T.SUBCNTR_ID,
+               T.PROJECT_ID,
+               SCH.K_NUMBER AS SUBCNTR_NUMBER,
+               SCH.K_ALIAS AS SUBCNTR_NAME,
+               VENDOR.VENDOR_NAME,
+               STM.STM_BM_SUBCNTR_MEASURE_PKG.GET_CUMU_AUDIT_AMOUNT(T.SUBCNTR_ID) AS CUMULATIVE_AUDIT_AMOUNT,
+               (STM.STM_BM_SUBCNTR_MEASURE_PKG.GET_CUMU_AUDIT_AMOUNT(T.SUBCNTR_ID) -
+               STM.STM_BM_SUBCNTR_TRANSFER_PKG.GET_CUMU_AUDIT_TRANSFER(T.SUBCNTR_ID)) AS LEFT_TRANSFER_AUDIT_AMOUNT,
+               ROUND(0 -
+               STM.STM_BM_SUBCNTR_MEASURE_PKG.GET_CUMU_SUB_AUDITDEDU_AMOUNT(T.SUBCNTR_ID),2) AS CUMULATIVE_DEDUCTION_AMOUNT,
+               ROUND(0 -
+               STM.STM_BM_SUBCNTR_TRANSFER_PKG.GET_LEFT_DEDUCTION_TRANSFER(T.SUBCNTR_ID),2) AS LEFT_TRANSFER_DEDUCTION_AMOUNT,
+               STM.STM_BM_SUBCNTR_VISA_PKG.GET_CUMU_AMOUNT(T.SUBCNTR_ID) AS CUMULATIVE_VISA_AMOUNT,
+               ROUND(STM.STM_BM_SUBCNTR_VISA_PKG.GET_CUMU_AMOUNT(T.SUBCNTR_ID) -
+               STM.STM_BM_SUBCNTR_TRANSFER_PKG.GET_CUMU_VISA_TRANSFER(T.SUBCNTR_ID),2) AS LEFT_TRANSFER_VISA_AMOUNT,
+               0 AS CURRENT_AUDIT_AMOUNT,
+               (0 -
+               STM.STM_BM_SUBCNTR_TRANSFER_PKG.GET_LEFT_DEDUCTION_TRANSFER(T.SUBCNTR_ID)) AS CURRENT_DEDUCTION_AMOUNT,
+               0 AS CURRENT_VISA_AMOUNT
+          FROM (SELECT SCH.K_HEADER_ID AS SUBCNTR_ID, 
+                       SCH.PROJECT_ID
+                  FROM STM.STM_CONTRACT_HEADERS_V SCH
+                 WHERE SCH.PROJECT_ID = :bvProjectId
+                
+                ) T,
+               STM.STM_OKE_CTR_VENDORS_V VENDOR,
+               STM.STM_CONTRACT_HEADERS_V SCH
+         WHERE SCH.K_HEADER_ID = T.SUBCNTR_ID
+           AND VENDOR.CONTRACT_ID = T.SUBCNTR_ID) T
+ WHERE
+
+ (ABS(T.LEFT_TRANSFER_AUDIT_AMOUNT) + ABS(T.LEFT_TRANSFER_DEDUCTION_AMOUNT) +
+ ABS(T.LEFT_TRANSFER_VISA_AMOUNT)) > 0]]>
+  </SQLQuery>
+  <ViewAttribute
+    Name="SubcntrId"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="SUBCNTR_ID"
+    Expression="SUBCNTR_ID"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ProjectId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="PROJECT_ID"
+    Expression="PROJECT_ID"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="SubcntrNumber"
+    LOVName="LOV_SubcntrNumber"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="120"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="SUBCNTR_NUMBER"
+    Expression="SUBCNTR_NUMBER"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="120"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer.SubcntrNumber_LABEL"/>
+        <TOOLTIP
+          ResId="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer.SubcntrNumber_TOOLTIP"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="input_text_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="SubcntrName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="300"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="SUBCNTR_NAME"
+    Expression="SUBCNTR_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="300"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer.SubcntrName_LABEL"/>
+        <TOOLTIP
+          ResId="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer.SubcntrName_TOOLTIP"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="VendorName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="240"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VENDOR_NAME"
+    Expression="VENDOR_NAME"
+    SQLType="VARCHAR"
+    LOVName="LOV_VendorName">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="240"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer.VendorName_LABEL"/>
+        <TOOLTIP
+          ResId="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer.VendorName_TOOLTIP"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <CONTROLTYPE
+          Value="input_text_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CumulativeAuditAmount"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="CUMULATIVE_AUDIT_AMOUNT"
+    Expression="CUMULATIVE_AUDIT_AMOUNT"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer.CumulativeAuditAmount_LABEL"/>
+        <TOOLTIP
+          ResId="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer.CumulativeAuditAmount_TOOLTIP"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="LeftTransferAuditAmount"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="LEFT_TRANSFER_AUDIT_AMOUNT"
+    Expression="LEFT_TRANSFER_AUDIT_AMOUNT"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer.LeftTransferAuditAmount_LABEL"/>
+        <TOOLTIP
+          ResId="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer.LeftTransferAuditAmount_TOOLTIP"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CumulativeDeductionAmount"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="CUMULATIVE_DEDUCTION_AMOUNT"
+    Expression="CUMULATIVE_DEDUCTION_AMOUNT"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer.CumulativeDeductionAmount_LABEL"/>
+        <TOOLTIP
+          ResId="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer.CumulativeDeductionAmount_TOOLTIP"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="LeftTransferDeductionAmount"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="LEFT_TRANSFER_DEDUCTION_AMOUNT"
+    Expression="LEFT_TRANSFER_DEDUCTION_AMOUNT"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer.LeftTransferDeductionAmount_LABEL"/>
+        <TOOLTIP
+          ResId="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer.LeftTransferDeductionAmount_TOOLTIP"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CumulativeVisaAmount"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="CUMULATIVE_VISA_AMOUNT"
+    Expression="CUMULATIVE_VISA_AMOUNT"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer.CumulativeVisaAmount_LABEL"/>
+        <TOOLTIP
+          ResId="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer.CumulativeVisaAmount_TOOLTIP"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="LeftTransferVisaAmount"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="LEFT_TRANSFER_VISA_AMOUNT"
+    Expression="LEFT_TRANSFER_VISA_AMOUNT"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer.LeftTransferVisaAmount_LABEL"/>
+        <TOOLTIP
+          ResId="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer.LeftTransferVisaAmount_TOOLTIP"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CurrentAuditAmount"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="CURRENT_AUDIT_AMOUNT"
+    Expression="CURRENT_AUDIT_AMOUNT"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer.CurrentAuditAmount_LABEL"/>
+        <TOOLTIP
+          ResId="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer.CurrentAuditAmount_TOOLTIP"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CurrentDeductionAmount"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="CURRENT_DEDUCTION_AMOUNT"
+    Expression="CURRENT_DEDUCTION_AMOUNT"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer.CurrentDeductionAmount_LABEL"/>
+        <TOOLTIP
+          ResId="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer.CurrentDeductionAmount_TOOLTIP"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CurrentVisaAmount"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="CURRENT_VISA_AMOUNT"
+    Expression="CURRENT_VISA_AMOUNT"
+    SQLType="NUMERIC"
+    DefaultValue="0">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer.CurrentVisaAmount_LABEL"/>
+        <TOOLTIP
+          ResId="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer.CurrentVisaAmount_TOOLTIP"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransferStatus"
+    LOVName="LOV_TransferStatus"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer.TransferStatus_LABEL"/>
+        <TOOLTIP
+          ResId="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer.TransferStatus_TOOLTIP"/>
+        <CONTROLTYPE
+          Value="choice"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransferDocumentNumber"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer.TransferDocumentNumber_LABEL"/>
+        <TOOLTIP
+          ResId="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer.TransferDocumentNumber_TOOLTIP"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CurrentTransferTotalAmount"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="VIEW_ATTR"
+    SQLType="NUMERIC">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer.CurrentTransferTotalAmount_LABEL"/>
+        <TOOLTIP
+          ResId="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer.CurrentTransferTotalAmount_TOOLTIP"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CheckedFlag"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"/>
+  <ViewAttribute
+    Name="TransferDate"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="VIEW_ATTR"
+    SQLType="DATE">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer.TransferDate_LABEL"/>
+        <TOOLTIP
+          ResId="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer.TransferDate_TOOLTIP"/>
+        <DISPLAYWIDTH
+          Value="25"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransferErrorMsg"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"/>
+  <ViewAttribute
+    Name="ERPDocumentNumber"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"/>
+  <ViewAttribute
+    Name="ERPDocumentType"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"/>
+  <ViewCriteria
+    Name="subcntrTransferCriteria"
+    ViewObjectName="cn.com.cscec8b.bm.subcntrtransfer.model.queries.BmSubcntrTransfer"
+    Conjunction="AND">
+    <Properties>
+      <CustomProperties>
+        <Property
+          Name="displayOperators"
+          Value="InAdvancedMode"/>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="showInList"
+          Value="true"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="false"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="vcrow160"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="SubcntrId"
+        ViewAttribute="SubcntrId"
+        Operator="="
+        Conjunction="AND"
+        Required="Optional">
+        <Properties>
+          <CustomProperties>
+            <Property
+              Name="renderedMode"
+              Value="Never"/>
+          </CustomProperties>
+        </Properties>
+      </ViewCriteriaItem>
+      <ViewCriteriaItem
+        Name="SubcntrNumber"
+        ViewAttribute="SubcntrNumber"
+        Operator="="
+        Conjunction="AND"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="VendorName"
+        ViewAttribute="VendorName"
+        Operator="="
+        Conjunction="AND"
+        Required="Optional"/>
+    </ViewCriteriaRow>
+  </ViewCriteria>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="SubcntrId"/>
+    <Item Value="TransferDocumentNumber"/>
+  </AttrArray>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="cn.com.cscec8b.bm.subcntrtransfer.model.BmSubCntrTransferModelBundle"/>
+  </ResourceBundle>
+</ViewObject>
